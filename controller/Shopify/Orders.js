@@ -2,7 +2,7 @@ const { default: axios } = require("axios");
 
 const app = require("express").Router();
 
-app.post("/GetOrderDetails" , (req ,res ) => {
+app.post("/GetOrderDetails" ,async (req ,res ) => {
       console.log(req.body.OrderId)
 
     let config = {

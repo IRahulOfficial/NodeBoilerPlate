@@ -3,12 +3,12 @@ const { default: axios } = require("axios");
 const app = require("express").Router();
 
 app.post("/GetOrderDetails" , (req ,res ) => {
-    
+      console.log(req.body.OrderId)
 
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'https://rahul8689.myshopify.com/admin/api/2024-10/orders/5990678888688.json',
+        url: `https://${req.body.StoreName}/admin/api/2024-10/orders/${req.body.OrderId}.json`,
         headers: { 
           'X-Shopify-Access-Token': process.env.Shopify_Token
         }

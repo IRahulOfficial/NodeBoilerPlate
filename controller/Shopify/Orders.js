@@ -18,20 +18,21 @@ app.post("/GetOrderDetails", async (req, res) => {
       // Fetch order details
       const orderResponse = await axios.request(config);
       const orderNumber = orderResponse.data.order.order_number;
-  
+      const confirmationNumber = orderResponse.data.order.confirmation_number;
+      const OrderId = orderResponse.data.order.id;
       // Generate QR code
-      const qrCodeUrl = await GenerateQR(orderNumber);
+      const qrCodeUrl = await GenerateQR(orderNumber,confirmationNumber + OrderId);
   
       // Update metafield
-      const metafieldUpdateResponse = await UpdateMetaField(
-        req.body.OrderId,
-        qrCodeUrl,
-        req.body.StoreName
-      );
+      // const metafieldUpdateResponse = await UpdateMetaField(
+      //   req.body.OrderId,
+      //   qrCodeUrl,
+      //   req.body.StoreName
+      // );
   
       res.json({
-        message: "Order details processed successfully!",
-        metafield: metafieldUpdateResponse,
+        message: "Order details processed successfully",
+        metafield: qrCodeUrl,
       });
     } catch (error) {
       console.error("Error processing order details:", error);

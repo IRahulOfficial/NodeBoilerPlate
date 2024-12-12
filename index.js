@@ -3,6 +3,7 @@ const app = express();
 var cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
+const { GenerateQR } = require("./utils/qr-generator");
 
 ///----------------------------------------------- MiddelWare Start --------------------------------------------------
 
@@ -12,13 +13,16 @@ app.use(express.static('public'))
 app.use('/images', express.static('images'));
 ///----------------------------------------------- MiddelWare End --------------------------------------------------
 
-//Api Routers
+///------------------------------------------------Api Routers Start ------------------------------------------------------
 
 const authRoute = require("./auth");
 const shopify = require("./controller/Shopify/Orders");
-const { GenerateQR } = require("./utils/qr-generator");
+const Customer = require("./controller/Shopify/Customer")
+///------------------------------------------------Api Routers End ------------------------------------------------------
+
 app.use("/auth", authRoute);
 app.use("/shopify", shopify);
+app.use("/Customer",Customer);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

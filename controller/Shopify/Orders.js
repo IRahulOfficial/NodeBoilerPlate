@@ -20,9 +20,9 @@ app.post("/GetOrderDetails", async (req, res) => {
       const orderNumber = orderResponse.data.order.order_number;
       const confirmationNumber = orderResponse.data.order.confirmation_number;
       const OrderId = orderResponse.data.order.id;
+      const Orderstatus  = orderResponse.data.order.order_status_url
       // Generate QR code
-      const qrCodeUrl = await GenerateQR(orderNumber,confirmationNumber + OrderId);
-  
+      const qrCodeUrl = await GenerateQR(Orderstatus,confirmationNumber + OrderId);
       // Update metafield
       // const metafieldUpdateResponse = await UpdateMetaField(
       //   req.body.OrderId,
@@ -32,7 +32,7 @@ app.post("/GetOrderDetails", async (req, res) => {
   
       res.json({
         message: "Order details processed successfully",
-        metafield: qrCodeUrl,
+        metafield: Orderstatus
       });
     } catch (error) {
       console.error("Error processing order details:", error);

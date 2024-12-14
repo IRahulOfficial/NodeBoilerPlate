@@ -10,12 +10,12 @@ app.post("/GetOrderDetails", async (req, res) => {
       maxBodyLength: Infinity,
       url: `https://${req.body.StoreName}/admin/api/2024-10/orders/${req.body.OrderId}.json`,
       headers: {
-        "X-Shopify-Access-Token": process.env.Shopify_Token,
+        "X-Shopify-Access-Token": req.body.Shopify_Token,
       },
     };
   
     try {
-      // Fetch order details
+      // Fetch order details 
       const orderResponse = await axios.request(config);
       const orderNumber = orderResponse.data.order.order_number;
       const confirmationNumber = orderResponse.data.order.confirmation_number;
